@@ -17,13 +17,33 @@ const { Book } = require('./models/book');
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-// GET ROUTE
+// GET BOOK ROUTE
 app.get('/api/getBook', (req, res) => {
+    // localhost:3001/api/getBook?id=123456
     let id = req.query.id;
 
     Book.findById(id, (err, doc) => {
         if (err) return res.status(400).send(err);
         res.send(doc);
+    })
+})
+
+// GET BOOKS ROUTE
+app.get('/api/books', (req, res) => {
+    // localhost:3001/books?skip=3&limit=2&order=asc
+    
+    // options
+    let skip  = parseInt(req.query.skip);
+    let limit = parseInt(req.query.limit);
+    let order = req.query.order; // asc || desc
+
+    Book.find()
+        .skip(skip)
+        .sort({_id:order})
+        .limit(limit)
+        .exec((err,doc) => {
+            if (err) return res.status(400).send(err);
+            res.send(doc);            
     })
 })
 
