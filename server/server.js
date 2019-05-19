@@ -18,13 +18,21 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 // GET ROUTE
+app.get('/api/getBook', (req, res) => {
+    let id = req.query.id;
+
+    Book.findById(id, (err, doc) => {
+        if (err) return res.status(400).send(err);
+        res.send(doc);
+    })
+})
 
 // POST ROUTE
 app.post('/api/book', (req, res) => {
     const book = new Book(req.body);
 
     book.save((err, doc) => {
-        if(err) return res.status(400).send(err);
+        if (err) return res.status(400).send(err);
         res.status(200).json({
             post: true,
             bookId: doc._id
