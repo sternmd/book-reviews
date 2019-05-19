@@ -14,8 +14,7 @@ const bookSchema = mongoose.Schema({
         default: 'n/a'
     },
     pages: {
-        type: Number,
-        default: 'n/a'
+        type: Number
     },
     rating: {
         type: Number,
@@ -24,8 +23,7 @@ const bookSchema = mongoose.Schema({
         max: 5
     },
     price: {
-        type: Number,
-        default: 'n/a'
+        type: Number
     },
     ownerId: {
         type: String,
