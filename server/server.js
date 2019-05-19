@@ -30,9 +30,9 @@ app.get('/api/getBook', (req, res) => {
 
 // GET BOOKS ROUTE
 app.get('/api/books', (req, res) => {
-    // localhost:3001/books?skip=3&limit=2&order=asc
+    // localhost:3001/api/books?skip=3&limit=2&order=asc
     
-    // options
+    // query options
     let skip  = parseInt(req.query.skip);
     let limit = parseInt(req.query.limit);
     let order = req.query.order; // asc || desc
@@ -61,8 +61,26 @@ app.post('/api/book', (req, res) => {
 })
 
 // UPDATE ROUTE
+app.post('/api/book_update', (req, res) => {
+    Book.findByIdAndUpdate(req.body._id, req.body, {new:true}, (err, doc) => {
+        if (err) return res.status(400).send(err);
+        res.json({
+            sucess: true,
+            doc
+        })
+    })
+})
 
 // DELETE ROUTE
+app.delete('/api/delete_book', (req,res) => {
+    // localhost:3001/api/books?id=123345
+    let id = req.query.id;
+
+    Book.findByIdAndRemove(id, (err,doc) => {
+        if (err) return res.status(400).send(err);
+        res.json(true)
+    })
+})
 
 // PORT
 const port = process.env.PORT || 3001;
