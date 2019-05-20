@@ -97,6 +97,27 @@ app.post('api/login', (req,res) => {
     })
 })
 
+// REVIEWER ID
+app.get('/api/getReviewer', (req,res) => {
+    let id = req.query.id;
+
+    User.findById(id, (err,doc) => {
+        if (err) return res.status(400).send(err);
+        res.json({
+            name: doc.name,
+            lastname: doc.lastname
+        })
+    })
+})
+
+// GET ALL USERS
+app.get('/api/users', (req,res) => {
+    User.find({}, (err,users) => {
+        if (err) return res.status(400).send(err);
+        res.status(200).send(users);
+    })
+})
+
 
 // UPDATE ROUTE
 app.post('/api/book_update', (req, res) => {
