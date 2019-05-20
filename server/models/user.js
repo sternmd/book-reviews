@@ -51,6 +51,24 @@ userSchema.pre('save', function(next) {
     }
 })
 
+userSchema.methods.comparePassword = function(candidatePassword, cb){
+    bcrypt.compare(candidatePassword, this.password, function(err,isMatch){
+        if(err) return cb(err);
+        cb(null, isMatch);
+    })
+}
+
+userSchema.methods.generateToken = function(cb) {
+    var user = this;
+    var token = jwt.sign(user._id.toHextString(), config.SECRET); // create token
+
+    user.token = token;
+    user.save(function(){
+        if(err) return cb(err);
+        cb(null, user);
+    })
+}
+
 const User = mongoose.model('User', userSchema)
 
 module.exports = { User }
