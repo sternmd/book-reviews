@@ -60,6 +60,19 @@ app.post('/api/book', (req, res) => {
     })
 })
 
+// USER POST
+app.post('/api/register', (req,res) => {
+    const user = new User(req.body);
+
+    user.save((err,doc) => {
+        if (err) return res.json({success:false});
+        res.status(200).json({
+            success: true,
+            user: doc
+        })
+    })
+})
+
 // UPDATE ROUTE
 app.post('/api/book_update', (req, res) => {
     Book.findByIdAndUpdate(req.body._id, req.body, {new:true}, (err, doc) => {
