@@ -118,6 +118,14 @@ app.get('/api/users', (req,res) => {
     })
 })
 
+// GET POSTS (REVIEWS) OF A USER
+app.get('/api/user_posts', (req,res) => {
+    // search all books that belong to owner id
+    Book.find({ownerId: req.query.user}).exec((err,docs) => {
+        if (err) return res.status(400).send(err);
+        res.send(docs)
+    })
+})
 
 // UPDATE ROUTE
 app.post('/api/book_update', (req, res) => {
