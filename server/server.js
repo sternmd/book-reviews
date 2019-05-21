@@ -98,6 +98,7 @@ app.post('api/login', (req,res) => {
     })
 })
 
+// USER isAuth
 app.get('/api/auth', auth, (req,res) => {
     res.json({
         isAuth: true,
