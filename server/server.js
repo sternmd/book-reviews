@@ -12,6 +12,7 @@ mongoose.connect(config.DATABASE);
 
 const { User } = require('./models/user');
 const { Book } = require('./models/book');
+const { auth } = require('./middleware/auth');
 
 // MIDDLEWARE
 app.use(bodyParser.json());
@@ -94,6 +95,14 @@ app.post('api/login', (req,res) => {
 
             })
         })
+    })
+})
+
+// USER LOGOUT
+app.get('/api/logout', auth, (req,res) => {
+// remove token of user, then log user out
+    req.user.deleteToken(req.token, (err,user) => {
+        if (err) return res.status(400).send(err);
     })
 })
 
