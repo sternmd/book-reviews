@@ -18,7 +18,7 @@ class Header extends Component {
     render() {
         return (
             <header>
-                <div class="open_nav">
+                <div className="open_nav">
                     <FontAwesome name="bars"
                         style={{
                             color: '#ffffff',
@@ -33,7 +33,7 @@ class Header extends Component {
                     onHideNav={() => this.onHideNav()}
                 />
                 <Link to="/" className="logo">
-                    The Book Shelf
+                    Currently Reading
                 </Link>
                 
             </header>
